@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:VideoStream"
+             xmlns:forms="clr-namespace:MediaManager.Forms;assembly=MediaManager.Forms"
+             x:Class="VideoStream.MainPage"
+             xmlns:view="clr-namespace:VideoStream.Views"
+             x:Name="mainPage"
+             >
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="n"/>
+    </ContentPage.ToolbarItems>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--MainPage -->
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="2*"/> 
+                <RowDefinition Height="*"/>               
+            </Grid.RowDefinitions>
+      <!--Tab 1 Page-->
+          
+            <view:FirstPage 
+                IsVisible="{Binding IsFirstShowing}"
+                Grid.Row="0"
+                />
+
+      <!--Tab 1 Page End -->
+
+      <!--Tab 2 Page-->
+            <view:SecondPage 
+                IsVisible="{Binding IsSecondShowing}"
+                Grid.Row="0"
+                />
+      <!--Tab 2 Page End-->
+
+      <!--Player-->
+        <Grid
+              x:Name="player"
+              Grid.Row="1"
+              BackgroundColor="Red"
+              TranslationY="{Binding PlayerYTranslation}">
+                <forms:VideoView
+                    VerticalOptions="FillAndExpand"                             
+                    ShowControls="True"
+                    x:Name="Screen" />
+                <ImageButton
+                    Source="UpArrow.png"
+                    Command="{Binding MaximizeCommand}"
+                    TranslationX="-150"
+                    TranslationY="-60"
+                    Scale="0.2"/>
+                    <ActivityIndicator Scale="0.3" IsEnabled="True"/>
+        </Grid>
+      <!--Player End-->
+
+   <!--TabNavigationBar-->
+        <Grid Grid.Row="2" BackgroundColor="White">
+      <!--Tab 1 -->
+            <StackLayout Grid.Column="0"
+                         VerticalOptions="Center"
+                         HorizontalOptions="End"
+                         >
+           
+                <ImageButton Command="{Binding Tab1Selector}"
+                            HeightRequest="30"
+                            BackgroundColor="Transparent"
+                            WidthRequest="30"
+                            Source="PlayButtonImage.png"/>
+
+                <Label Text="Play"
+                        HorizontalTextAlignment="Center"
+                        TextColor="Black"/>
+
+            </StackLayout>
+      <!--Tab 1-->
+
+     <!-- Tab 2 -->
+            <StackLayout Grid.Column="2"                    
+                            VerticalOptions="Center"
+                        HorizontalOptions="Start"
+                        >
+
+                <ImageButton Command="{Binding Tab2Selector}"
+                                HeightRequest="30"
+                                WidthRequest="30"
+                                BackgroundColor="Transparent"
+                                Source="HistoryButton.png"/>
+
+                <Label Text="History"
+                        HorizontalTextAlignment="Center"
+                        TextColor="Black"/>
+            </StackLayout>
+     <!--Tab 2 End-->
+        </Grid>
+   <!--TabNavigationBar End -->
+        </Grid>
+
+        <StackLayout
+            TranslationY="243"
+            IsVisible="{Binding IsPlaying}"
+            Grid.Row="0"
+            BackgroundColor="White"
+            x:Name="Description">
+                <ImageButton
+                    Command="{Binding MinimizeCommand}"
+                    TranslationX="-150"
+                    TranslationY="-170"
+                    Source="ArrowDown"
+                    HorizontalOptions="Start" Scale="0.2"/>
+            <Label Text="{Binding CurrentVideo.Title}" FontSize="Title"/>
+
+            <Label Text="{Binding CurrentVideo.WhenViewed}" FontSize="Title"/>
+
+        </StackLayout>
+    </Grid>
+</ContentPage>

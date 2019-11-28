@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="VideoStream.Views.SecondPage">
+    <ContentView.Content>     
+         <StackLayout>
+               <Label Text="Your Watch History" TextColor="Black"  Padding="15" HorizontalOptions="Center" FontSize="Title" />
+                  <!--History-->
+                           <ListView ItemsSource="{Binding History}" IsPullToRefreshEnabled="True" Refreshing="Refreshing" IsRefreshing="{Binding IsRefreshing}" RowHeight="100" SelectionMode="None" >
+                              <ListView.ItemTemplate>
+                                  <DataTemplate>
+                                     <ViewCell>
+                                         <StackLayout Orientation="Horizontal"  Spacing="15">
+                                             <StackLayout.GestureRecognizers>
+                                                 <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="HandleTapped"/>
+                                             </StackLayout.GestureRecognizers>
+                                             <Image Source="{Binding VideoThumbNailLink}" Aspect="AspectFill"/>
+                                             <StackLayout Orientation="Vertical" >
+                                                 <Label FontSize="Title" TextColor="Black" Text="{Binding Title}"/>
+                                                 <Label FontSize="Small" TextColor="Black"  Text="{Binding WhenViewed}"/>
+                                                 <Label FontSize="Small" TextColor="Black" Text="{Binding NumberOfView}"/>
+                                             </StackLayout>
+                                         </StackLayout>
+                                     </ViewCell>
+                                  </DataTemplate>
+                              </ListView.ItemTemplate>
+                          </ListView>
+         </StackLayout>
+    </ContentView.Content>
+</ContentView>
